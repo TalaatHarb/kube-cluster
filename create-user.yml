@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: create the 'k8soperator' user
+      user: name=k8soperator append=yes state=present createhome=yes shell=/bin/bash
+
+    - name: allow 'k8soperaotr' to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'k8soperator ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: set up authorized keys for the k8soperator user
+      authorized_key: user=k8soperator key="{{item}}"
+      with_file:
+        - ~/.ssh/id_rsa.pub
