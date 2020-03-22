@@ -5,4 +5,5 @@ Reference: https://www.digitalocean.com/community/tutorials/how-to-create-a-kube
 
 ## dashboard
 Guide: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+Token command: kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 UI link: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=_all
